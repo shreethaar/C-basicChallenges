@@ -15,5 +15,8 @@ int main() {
     *ptr+=1;
     printf("\nNow i is %d\n",i);
     printf("Now *ptr is %d\n", *ptr);
+
+    *ptr+=j;
+    printf("\nNow *ptr is %d\n", *ptr);
     return 0;
 }
