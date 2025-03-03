@@ -1,4 +1,6 @@
 // file scope
+// declared outside any function
+// accesible throughout the file after the point of declaration
 #include <stdio.h>
 
 int global_var = 10;        //file scope: accesible everywhere in this file
