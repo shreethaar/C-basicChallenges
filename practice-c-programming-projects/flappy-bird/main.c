@@ -19,7 +19,7 @@ typedef struct {
 
 void draw_pipe(int x, int gap_y);
 void generate_pipes(Pipe pipes[], int count);
-
+int check_collision(int bird_y, Pipe pipe[]);
 
 int main() {
     initscr(); // initialize ncurses 
@@ -65,6 +65,14 @@ int main() {
     
         // apply gravity
         bird_y++;
+
+        if(check_collision(bird_y, pipes)) {
+            mvprintw(SCREEN_HEIGHT/2, SCREEN_WIDTH/2-5, "GAME OVER!");
+            refresh();
+            sleep(2);
+            break; //end game loop
+        }
+
         refresh(); // refresh screen to show updates
         usleep(DELAY); // control game speed 
     }
@@ -88,5 +96,17 @@ void generate_pipes(Pipe pipes[], int count) {
         pipes[i].x=SCREEN_WIDTH + (i * (SCREEN_WIDTH/PIPE_COUNT));
         pipes[i].gap_y=rand()%(SCREEN_HEIGHT - PIPE_GAP - 2) + 1;
     }
+}
+
+int check_collision(int bird_y, Pipe pipes[]) {
+    if(bird_y<=0 || bird_y>=SCREEN_HEIGHT) return 1;  // hit top or bottom
+    for(int i=0;i<PIPE_COUNT;i++) {
+        if(pipes[i].x==BIRD_X) {
+            if(bird_y<pipes[i].gap_y || bird_y > pipes[i].gap_y + PIPE_GAP) {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
