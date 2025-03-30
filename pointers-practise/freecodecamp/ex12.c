@@ -13,6 +13,7 @@ void print(char* C) {
 
 
 int main() {
+    //char *C = "Hello"; //string gets stored as compile time constatn (.text)
     char C[20] = "Hello";
     printf(C);
 }
